@@ -34,7 +34,7 @@ public class QiitaBotApplication {
 //    }
     
     @EventMapping
-    @Scheduled(initialDelay = 30000, fixedRate = 5000)
+    @Scheduled( fixedRate = 5000)
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
 //        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
