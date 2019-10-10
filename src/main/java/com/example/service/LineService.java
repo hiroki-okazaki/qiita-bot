@@ -96,5 +96,9 @@ public class LineService {
 			return OTHER_MESSAGE;
 		}
 	}
+	
+	public String createResponseMessage() {
+		return MESSAGE_MAP.get(CORE_VALUE_ALL_MESSAGE);
+	}
 
 }
