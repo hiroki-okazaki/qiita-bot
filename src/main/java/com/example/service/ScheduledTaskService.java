@@ -20,7 +20,6 @@ public class ScheduledTaskService {
 	
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void executeAlarm() {
         try {
             //プッシュする処理を呼び出す

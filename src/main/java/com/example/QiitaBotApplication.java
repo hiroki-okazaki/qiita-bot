@@ -1,11 +1,14 @@
 package com.example;
 
+import java.net.URISyntaxException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -22,6 +25,10 @@ public class QiitaBotApplication {
     // LINEサービス
     @Autowired
     private LineService lineService;
+    
+    // LINEサービス
+    @Autowired
+    private PushConfirmController pushConfirmController;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
@@ -42,8 +49,9 @@ public class QiitaBotApplication {
 //    }
     
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException {
         System.out.println("event: ");
+        pushConfirmController.pushAlarm();
         return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
     }
     
