@@ -1,6 +1,7 @@
 package com.example;
 
 import java.net.URISyntaxException;
+import java.time.LocalTime;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,13 +61,18 @@ public class QiitaBotApplication {
         System.out.println("event: ");
         System.out.println(event.getSource().getUserId());
 //        pushConfirmController.pushAlarm(event);
-        
-        BotApiResponse response = lineMessagingClient.pushMessage((new PushMessage("Udd89ec41ae851f75bc33dc4c331d56fb",
+        switch (event.getMessage().getText().toString()) {
+        case "こんにちは":
+          return makeGreeting();
+        default:
+        		
+        BotApiResponse response = lineMessagingClient.pushMessage((new PushMessage(event.getReplyToken(),
                 new TemplateMessage("明日は燃えるごみの日だよ！",new ConfirmTemplate("ごみ捨ては終わった？",
                                                                                 new MessageAction("はい", "はい"),
                                                                                 new MessageAction("いいえ", "いいえ")
                                                                                 ) ))) ).get();
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
+        }
     }
     
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
@@ -82,8 +88,19 @@ public class QiitaBotApplication {
 //    }
     
     
-//    @Autowired
-//    private LineMessagingService lineMessagingService;
+    // あいさつする
+    private TextMessage makeGreeting() {
+      LocalTime lt = LocalTime.now();
+      int hour = lt.getHour();
+      if (hour >= 6 && hour <= 11) {
+        return new TextMessage("おはようございます、Dukeです");
+      }
+      if (hour >= 12 && hour <= 16) {
+        return new TextMessage("こんにちは、Dukeです");
+      }
+
+      return new TextMessage("こんばんは、Dukeです");
+    }
 
 //    @EventMapping
 //    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
