@@ -34,11 +34,16 @@ public class QiitaBotApplication {
 //    }
     
     @EventMapping
-    @Scheduled( fixedRate = 5000)
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
 //        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
         return new TextMessage(lineService.createResponseMessage());
+    }
+    
+    
+    public void doSomething() {
+      //...
     }
 //    
 //    @EventMapping
