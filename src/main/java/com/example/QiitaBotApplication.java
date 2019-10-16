@@ -27,18 +27,18 @@ public class QiitaBotApplication {
         SpringApplication.run(QiitaBotApplication.class, args);
     }
 
-//    @EventMapping
-//    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-//        System.out.println("event: " + event);
-//        return new TextMessage(event.getMessage().getText());
-//    }
+    @EventMapping
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        return new TextMessage(event.getMessage().getText());
+    }
     
     @EventMapping
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    public TextMessage handleTextMessage(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-//        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
-        return new TextMessage(lineService.createResponseMessage());
+        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
+//        return new TextMessage(lineService.createResponseMessage());
     }
     
 //    @EventMapping

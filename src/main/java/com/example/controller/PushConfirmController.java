@@ -4,7 +4,9 @@ package com.example.controller;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineMessagingClient;
@@ -17,7 +19,8 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestController
+@Controller
+@RequestMapping("")
 public class PushConfirmController {
 
     private LineMessagingClient lineMessagingClient;
@@ -27,7 +30,7 @@ public class PushConfirmController {
     }
 
     //リマインドをプッシュ
-    @GetMapping("alarm")
+    @RequestMapping("")
     public void pushAlarm() throws URISyntaxException {
 
         try {
