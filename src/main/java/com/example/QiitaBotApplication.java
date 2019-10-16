@@ -49,7 +49,7 @@ public class QiitaBotApplication {
     
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
-    	new TextMessage(lineService.createResponseMessage());
+    	new TextMessage("cron成功");
     }
 //    
 //    @EventMapping

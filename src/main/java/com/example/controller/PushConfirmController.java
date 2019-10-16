@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class PushConfirmController {
 
     private LineMessagingClient lineMessagingClient;
@@ -41,10 +41,9 @@ public class PushConfirmController {
                                                                  )
                                                          )))
                                             .get();
+            	return "/index";
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
-        }finally {
-        	return "/index";
         }
     }
 }
