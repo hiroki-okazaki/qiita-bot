@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.service.LineService;
 import com.linecorp.bot.model.event.Event;
@@ -46,9 +47,9 @@ public class QiitaBotApplication {
         return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
     }
     
-    
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
-      //...
+    	new TextMessage(lineService.createResponseMessage());
     }
 //    
 //    @EventMapping
