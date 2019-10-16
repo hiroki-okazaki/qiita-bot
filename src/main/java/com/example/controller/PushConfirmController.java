@@ -4,21 +4,22 @@ package com.example.controller;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Component;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 
-import lombok.extern.slf4j.Slf4j;
+//@Slf4j
+//@Controller
+//@RequestMapping("/")
 
-@Slf4j
-@Controller
-@RequestMapping("/")
+@Component
 public class PushConfirmController {
 
     private LineMessagingClient lineMessagingClient;
@@ -28,12 +29,12 @@ public class PushConfirmController {
     }
 
     //リマインドをプッシュ
-    @RequestMapping("")
-    public String pushAlarm() throws URISyntaxException {
+//    @RequestMapping("")
+    public String pushAlarm(MessageEvent<TextMessageContent> event) throws URISyntaxException {
 
         try {
             BotApiResponse response = lineMessagingClient
-                                            .pushMessage(new PushMessage("/* プッシュしたい人のuserId */",
+                                            .pushMessage(new PushMessage(event.getSource().getUserId(),
                                                          new TemplateMessage("明日は燃えるごみの日だよ！",
                                                                  new ConfirmTemplate("ごみ捨ては終わった？",
                                                                          new MessageAction("はい", "はい"),

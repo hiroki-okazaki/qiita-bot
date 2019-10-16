@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
@@ -22,10 +21,9 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @EnableScheduling
 public class QiitaBotApplication {
 
-    // LINEサービス
-    @Autowired
-    private LineService lineService;
-    
+	@Autowired
+    private LineService lineservice;
+	
     // LINEサービス
     @Autowired
     private PushConfirmController pushConfirmController;
@@ -51,15 +49,16 @@ public class QiitaBotApplication {
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException {
         System.out.println("event: ");
-        pushConfirmController.pushAlarm();
-        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
+        System.out.println(event.getSource().getUserId());
+        pushConfirmController.pushAlarm(event);
+        return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
     }
     
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public TextMessage doSomething() {
-    	System.out.println("cron呼ばれてる");
-    	return new TextMessage("cron成功");
-    }
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    public TextMessage doSomething() {
+//    	System.out.println("cron呼ばれてる");
+//    	return new TextMessage("cron成功");
+//    }
 //    
 //    @EventMapping
 //    @Scheduled(initialDelay = 60000, fixedRate = 5000)
@@ -85,10 +84,6 @@ public class QiitaBotApplication {
     public void defaultMessageEvent(Event event) {
       System.out.println("event: " + event);
     }
-    
-    
-    
-    
     
     @EventMapping
     public void handleDefaultMessageEvent(Event event) {
