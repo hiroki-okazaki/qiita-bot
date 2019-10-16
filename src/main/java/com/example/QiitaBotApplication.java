@@ -48,9 +48,9 @@ public class QiitaBotApplication {
     }
     
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public void doSomething() {
+    public TextMessage doSomething() {
     	System.out.println("cron呼ばれてる");
-    	new TextMessage("cron成功");
+    	return new TextMessage("cron成功");
     }
 //    
 //    @EventMapping
