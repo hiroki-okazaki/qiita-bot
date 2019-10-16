@@ -33,10 +33,18 @@ public class QiitaBotApplication {
 //        return new TextMessage(event.getMessage().getText());
 //    }
     
+//    @EventMapping
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+//        System.out.println("event: " + event);
+////        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
+//        return new TextMessage(lineService.createResponseMessage());
+//    }
+    
     @EventMapping
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-        System.out.println("event: " + event);
+    public TextMessage handleTextMessageEvent() {
+        System.out.println("event: ");
 //        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
         return new TextMessage(lineService.createResponseMessage());
     }
