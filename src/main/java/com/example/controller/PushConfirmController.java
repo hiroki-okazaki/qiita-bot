@@ -34,7 +34,7 @@ public class PushConfirmController {
 
         try {
             BotApiResponse response = lineMessagingClient
-                                            .pushMessage(new PushMessage(event.getSource().getUserId(),
+                                            .pushMessage(new PushMessage("Udd89ec41ae851f75bc33dc4c331d56fb",
                                                          new TemplateMessage("明日は燃えるごみの日だよ！",
                                                                  new ConfirmTemplate("ごみ捨ては終わった？",
                                                                          new MessageAction("はい", "はい"),
