@@ -3,8 +3,6 @@ package com.example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.service.LineService;
 import com.linecorp.bot.model.event.Event;
@@ -16,7 +14,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 @SpringBootApplication
 @LineMessageHandler
-@EnableScheduling
+//@EnableScheduling
 public class QiitaBotApplication {
 
     // LINEサービス
@@ -27,11 +25,11 @@ public class QiitaBotApplication {
         SpringApplication.run(QiitaBotApplication.class, args);
     }
 
-//    @EventMapping
-//    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-//        System.out.println("event: " + event);
-//        return new TextMessage(event.getMessage().getText());
-//    }
+    @EventMapping
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        return new TextMessage(event.getMessage().getText());
+    }
     
 //    @EventMapping
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
@@ -41,13 +39,13 @@ public class QiitaBotApplication {
 //        return new TextMessage(lineService.createResponseMessage());
 //    }
     
-    @EventMapping
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public TextMessage handleTextMessageEvent() {
-        System.out.println("event: ");
-//        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
-        return new TextMessage(lineService.createResponseMessage());
-    }
+//    @EventMapping
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    public TextMessage handleTextMessageEvent() {
+//        System.out.println("event: ");
+////        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
+//        return new TextMessage(lineService.createResponseMessage());
+//    }
     
     
     public void doSomething() {

@@ -2,6 +2,6 @@ line.bot:
   channel-token: 'p3/uPbAcwjPYlFVvD1hIhuWCitd9iSAXOzvHZdj7n687Zl5dSHkw39C1A4rva3iy1psQnVx6ktex7BaN/EpJ9FotrlVsUsVrX3q8TBi7e1ShNMjppWhVLxOy9Ku6YbSSNuKdiHajpJ3oEMzJU12frwdB04t89/1O/w1cDnyilFU='
   channel-secret: '9da1c4d65360a338b5a9aecf155160d7'
   handler.path: /callback
-cron:
-  cron1: 0 * * * * MON-FRI
-  cron2: 0 */2 * * * *
+#cron:
+#  cron1: 0 * * * * MON-FRI
+#  cron2: 0 */2 * * * *
