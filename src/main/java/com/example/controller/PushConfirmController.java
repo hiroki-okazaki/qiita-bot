@@ -33,8 +33,7 @@ public class PushConfirmController {
     public String pushAlarm(MessageEvent<TextMessageContent> event) throws URISyntaxException {
 
         try {
-            BotApiResponse response = lineMessagingClient
-                                            .pushMessage(new PushMessage("Udd89ec41ae851f75bc33dc4c331d56fb",
+            BotApiResponse response = lineMessagingClient.pushMessage(new PushMessage("Udd89ec41ae851f75bc33dc4c331d56fb",
                                                          new TemplateMessage("明日は燃えるごみの日だよ！",
                                                                  new ConfirmTemplate("ごみ捨ては終わった？",
                                                                          new MessageAction("はい", "はい"),

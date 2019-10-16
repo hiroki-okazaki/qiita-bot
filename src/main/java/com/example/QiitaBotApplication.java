@@ -1,6 +1,7 @@
 package com.example;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -9,10 +10,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ConfirmTemplate;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -27,6 +34,8 @@ public class QiitaBotApplication {
     // LINEサービス
     @Autowired
     private PushConfirmController pushConfirmController;
+    
+    private LineMessagingClient lineMessagingClient;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
@@ -47,10 +56,16 @@ public class QiitaBotApplication {
 //    }
     
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
         System.out.println("event: ");
         System.out.println(event.getSource().getUserId());
-        pushConfirmController.pushAlarm(event);
+//        pushConfirmController.pushAlarm(event);
+        
+        BotApiResponse response = lineMessagingClient.pushMessage((new PushMessage("Udd89ec41ae851f75bc33dc4c331d56fb",
+                new TemplateMessage("明日は燃えるごみの日だよ！",new ConfirmTemplate("ごみ捨ては終わった？",
+                                                                                new MessageAction("はい", "はい"),
+                                                                                new MessageAction("いいえ", "いいえ")
+                                                                                ) ))) ).get();
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
     }
     
