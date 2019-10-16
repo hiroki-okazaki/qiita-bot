@@ -21,16 +21,19 @@ public class WebhookController {
 
 		switch (text) {
 		case "はい": {
-			this.reply(event.getMessage().getText(), new TextMessage("さっすがー！"));
+			new TextMessage("さっすがー！");
+//			this.reply(event.getMessage().getText(), new TextMessage("さっすがー！"));
 			break;
 		}
 		case "いいえ": {
-			this.reply(replyToken, new TextMessage("捨てにいきましょー！"));
+			new TextMessage("早くしなさい");
+//			this.reply(replyToken, new TextMessage("捨てにいきましょー！"));
 			break;
 		}
 		default:
-			log.info("Returns echo message {}: {}", replyToken, text);
-			this.replyText(replyToken, text);
+			new TextMessage("はいでもいいえでもない");
+//			log.info("Returns echo message {}: {}", replyToken, text);
+//			this.replyText(replyToken, text);
 			break;
 		}
 	}
