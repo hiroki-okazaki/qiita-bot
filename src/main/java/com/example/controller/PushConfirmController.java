@@ -5,9 +5,7 @@ import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
@@ -31,7 +29,7 @@ public class PushConfirmController {
 
     //リマインドをプッシュ
     @RequestMapping("")
-    public void pushAlarm() throws URISyntaxException {
+    public String pushAlarm() throws URISyntaxException {
 
         try {
             BotApiResponse response = lineMessagingClient
@@ -45,6 +43,8 @@ public class PushConfirmController {
                                             .get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
+        }finally {
+        	return "/index";
         }
     }
 }
