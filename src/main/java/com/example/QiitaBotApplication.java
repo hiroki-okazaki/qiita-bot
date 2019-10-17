@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.example.controller.Callback;
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
 import com.linecorp.bot.client.LineMessagingClient;
@@ -41,67 +42,41 @@ public class QiitaBotApplication {
     @Autowired
     private PushConfirmController pushConfirmController;
     
+    //オウム返し、ユーザーidの登録を行うコントローラー
     @Autowired
-    private LineMessagingClient lineMessagingClient;
+    private Callback callback;
+    
+//    @Autowired
+//    private LineMessagingClient lineMessagingClient;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
     }
     
+    //オウム返しを行うメソッド
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
-        System.out.println("event: ");
-        System.out.println(event.getSource().getUserId());
-        		
-        return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
+    	
+    	callback.registrationUser(event);
+        
+        TextMessage text = new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
+        return text;
         }
     
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
     	System.out.println("cron呼ばれてる");
-    	pushMessage("test");
+    	pushConfirmController.pushMessage();
     }
 
-    @EventMapping
-    public void defaultMessageEvent(Event event) {
-      System.out.println("event: " + event);
-    }
-    
-    @EventMapping
-    public void handleDefaultMessageEvent(Event event) {
-        System.out.println("event: " + event);
-    }
-    
-    //指定したユーザーにメッセージを送信するメソッド
-    public void pushMessage() {
-        String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
-        Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
-        
-            try {
-            	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは"))).get();
-                log.info("Sent messages: {}", apiResponse);
-            } catch (Exception e) {
-            	System.out.println(e);
-                // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
-            }
-        }
-    
-    public void pushMessage(String challenge) {
-        String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
-        Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
-        
-            try {
-            	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(userId, new TemplateMessage("明日は燃えるごみの日だよ！",
-                        new ConfirmTemplate("ごみ捨ては終わった？",
-                                new MessageAction("はい", "はい"),
-                                new MessageAction("いいえ", "いいえ")
-                        )
-                ))).get();
-                log.info("Sent messages: {}", apiResponse);
-            } catch (Exception e) {
-            	System.out.println(e);
-                // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
-            }
-        }
+//    @EventMapping
+//    public void defaultMessageEvent(Event event) {
+//      System.out.println("event: " + event);
+//    }
+//    
+//    @EventMapping
+//    public void handleDefaultMessageEvent(Event event) {
+//        System.out.println("event: " + event);
+//    }
     
 }
