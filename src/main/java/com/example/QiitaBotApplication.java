@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
@@ -68,15 +69,14 @@ public class QiitaBotApplication {
 //                                                                                new MessageAction("はい", "はい"),
 //                                                                                new MessageAction("いいえ", "いいえ")
 //                                                                          ) ))) ).get();
-        pushMessage(event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-//    public TextMessage doSomething() {
-//    	System.out.println("cron呼ばれてる");
-//    	return new TextMessage("cron成功");
-//    }
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    public void doSomething() {
+    	System.out.println("cron呼ばれてる");
+    	pushMessage();
+    }
 //    
 //    @EventMapping
 //    @Scheduled(initialDelay = 60000, fixedRate = 5000)
@@ -106,13 +106,13 @@ public class QiitaBotApplication {
     }
     
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public void pushMessage(MessageEvent<TextMessageContent> event) {
+    public void pushMessage() {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
         Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
         
             try {
             	System.out.println("処理実行");
-            	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("こんにちは"))).get();
+            	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは"))).get();
                 System.out.println("成功");
                 log.info("Sent messages: {}", apiResponse);
             } catch (Exception e) {
