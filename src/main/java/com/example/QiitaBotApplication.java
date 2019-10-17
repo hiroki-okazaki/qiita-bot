@@ -37,7 +37,7 @@ public class QiitaBotApplication {
     @Autowired
     private PushConfirmController pushConfirmController;
     
-    private LineMessagingClient lineMessagingClient = LineMessagingClient.builder(System.getenv("p3/uPbAcwjPYlFVvD1hIhuWCitd9iSAXOzvHZdj7n687Zl5dSHkw39C1A4rva3iy1psQnVx6ktex7BaN/EpJ9FotrlVsUsVrX3q8TBi7e1ShNMjppWhVLxOy9Ku6YbSSNuKdiHajpJ3oEMzJU12frwdB04t89/1O/w1cDnyilFU=")).build();
+    private LineMessagingClient lineMessagingClient;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
