@@ -73,11 +73,11 @@ public class QiitaBotApplication {
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public TextMessage doSomething() {
-    	System.out.println("cron呼ばれてる");
-    	return new TextMessage("cron成功");
-    }
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    public TextMessage doSomething() {
+//    	System.out.println("cron呼ばれてる");
+//    	return new TextMessage("cron成功");
+//    }
 //    
 //    @EventMapping
 //    @Scheduled(initialDelay = 60000, fixedRate = 5000)
