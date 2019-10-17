@@ -1,7 +1,6 @@
 package com.example;
 
 import java.net.URISyntaxException;
-import java.time.LocalTime;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -104,7 +104,7 @@ public class QiitaBotApplication {
     public static void pushMessage(LineMessagingClient lineMessagingClient,MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
             try {
-                lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは")));
+            	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("こんにちは"))).get();
                 System.out.println("成功");
             } catch (Exception e) {
             	System.out.println("失敗");
