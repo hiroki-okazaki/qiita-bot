@@ -56,7 +56,7 @@ public class QiitaBotApplication {
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
     	System.out.println("cron呼ばれてる");
     	pushMessage("test");
