@@ -15,9 +15,11 @@ public class Callback {
 
 	public void registrationUser(MessageEvent<TextMessageContent> event) {
 		String userId = event.getSource().getUserId();
+		System.out.println("3333333333333");
 		if (userRepository.findByUserId(userId) == null) {
 			User user = new User();
 			user.setUserId(userId);
+			System.out.println("44444444444");
 			user.setRegistrationUrl("https://qiita.com/zakioka_pirori");
 
 			userRepository.insert(user);

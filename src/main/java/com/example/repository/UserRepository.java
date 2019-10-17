@@ -50,6 +50,7 @@ public class UserRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		String sql = "INSERT INTO users(user_id, registration_url) VALUES(:userId, :registrationUrl)";
 		template.update(sql, param);
+		System.out.println("777777777777");
 	}
 	
 	public List<User> findAll(){
