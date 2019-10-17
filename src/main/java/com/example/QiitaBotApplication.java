@@ -37,7 +37,8 @@ public class QiitaBotApplication {
     @Autowired
     private PushConfirmController pushConfirmController;
     
-    private static LineMessagingClient lineMessagingClient;
+    @Autowired
+    private LineMessagingClient lineMessagingClient;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
@@ -105,7 +106,7 @@ public class QiitaBotApplication {
     }
     
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public static void pushMessage(MessageEvent<TextMessageContent> event) {
+    public void pushMessage(MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
         Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
         
