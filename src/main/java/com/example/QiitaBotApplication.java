@@ -8,20 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.template.ConfirmTemplate;
-import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -66,16 +62,16 @@ public class QiitaBotApplication {
 //                new TemplateMessage("明日は燃えるごみの日だよ！",new ConfirmTemplate("ごみ捨ては終わった？",
 //                                                                                new MessageAction("はい", "はい"),
 //                                                                                new MessageAction("いいえ", "いいえ")
-//                                                                                ) ))) ).get();
+//                                                                          ) ))) ).get();
         pushMessage(lineMessagingClient,event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-//    public TextMessage doSomething() {
-//    	System.out.println("cron呼ばれてる");
-//    	return new TextMessage("cron成功");
-//    }
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    public TextMessage doSomething() {
+    	System.out.println("cron呼ばれてる");
+    	return new TextMessage("cron成功");
+    }
 //    
 //    @EventMapping
 //    @Scheduled(initialDelay = 60000, fixedRate = 5000)
@@ -83,20 +79,6 @@ public class QiitaBotApplication {
 //    	return new TextMessage(lineService.createResponseMessage());
 //    }
     
-    
-    // あいさつする
-    private TextMessage makeGreeting() {
-      LocalTime lt = LocalTime.now();
-      int hour = lt.getHour();
-      if (hour >= 6 && hour <= 11) {
-        return new TextMessage("おはようございます、Dukeです");
-      }
-      if (hour >= 12 && hour <= 16) {
-        return new TextMessage("こんにちは、Dukeです");
-      }
-
-      return new TextMessage("こんばんは、Dukeです");
-    }
 
 //    @EventMapping
 //    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
@@ -118,12 +100,14 @@ public class QiitaBotApplication {
         System.out.println("event: " + event);
     }
     
-    
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public static void pushMessage(LineMessagingClient lineMessagingClient,MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
             try {
                 lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは")));
+                System.out.println("成功");
             } catch (Exception e) {
+            	System.out.println("失敗");
                 // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
             }
         }
