@@ -67,7 +67,6 @@ public class QiitaBotApplication {
 //                                                                                new MessageAction("はい", "はい"),
 //                                                                                new MessageAction("いいえ", "いいえ")
 //                                                                          ) ))) ).get();
-        System.out.println(lineMessagingClient);
         pushMessage(event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
@@ -109,7 +108,9 @@ public class QiitaBotApplication {
     public static void pushMessage(MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
         Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
+        
             try {
+            	System.out.println("処理実行");
             	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("こんにちは"))).get();
                 System.out.println("成功");
                 log.info("Sent messages: {}", apiResponse);
