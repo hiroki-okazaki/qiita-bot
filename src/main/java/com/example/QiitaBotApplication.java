@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
@@ -38,7 +37,7 @@ public class QiitaBotApplication {
     @Autowired
     private PushConfirmController pushConfirmController;
     
-    private LineMessagingClient lineMessagingClient;
+    private static LineMessagingClient lineMessagingClient;
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
@@ -69,7 +68,7 @@ public class QiitaBotApplication {
 //                                                                                new MessageAction("いいえ", "いいえ")
 //                                                                          ) ))) ).get();
         System.out.println(lineMessagingClient);
-        pushMessage(lineMessagingClient,event);
+        pushMessage(event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
@@ -107,7 +106,7 @@ public class QiitaBotApplication {
     }
     
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public static void pushMessage(LineMessagingClient lineMessagingClient,MessageEvent<TextMessageContent> event) {
+    public static void pushMessage(MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
         Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
             try {
@@ -120,5 +119,4 @@ public class QiitaBotApplication {
                 // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
             }
         }
-
 }
