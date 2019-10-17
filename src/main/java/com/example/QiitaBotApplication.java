@@ -44,20 +44,6 @@ public class QiitaBotApplication {
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
     }
-
-//    @EventMapping
-//    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-//        System.out.println("event: " + event);
-//        return new TextMessage(event.getMessage().getText());
-//    }
-    
-//    @EventMapping
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-//    public TextMessage handleTextMessage(MessageEvent<TextMessageContent> event) {
-//        System.out.println("event: " + event);
-//        return new TextMessage(lineService.createResponseMessage(event.getMessage().getText()));
-////        return new TextMessage(lineService.createResponseMessage());
-//    }
     
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
@@ -72,7 +58,7 @@ public class QiitaBotApplication {
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
     
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
     	System.out.println("cron呼ばれてる");
     	pushMessage();
@@ -111,12 +97,9 @@ public class QiitaBotApplication {
         Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
         
             try {
-            	System.out.println("処理実行");
             	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは"))).get();
-                System.out.println("成功");
                 log.info("Sent messages: {}", apiResponse);
             } catch (Exception e) {
-            	System.out.println("失敗");
             	System.out.println(e);
                 // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
             }
