@@ -11,6 +11,7 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -41,6 +42,7 @@ public class PushConfirmController {
                                                                  )
                                                          )))
                                             .get();
+            
             	return "/index";
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);

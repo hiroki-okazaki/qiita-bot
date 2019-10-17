@@ -17,6 +17,7 @@ import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
@@ -36,7 +37,7 @@ public class QiitaBotApplication {
     @Autowired
     private PushConfirmController pushConfirmController;
     
-    private LineMessagingClient lineMessagingClient;
+    private LineMessagingClient lineMessagingClient = LineMessagingClient.builder(System.getenv("p3/uPbAcwjPYlFVvD1hIhuWCitd9iSAXOzvHZdj7n687Zl5dSHkw39C1A4rva3iy1psQnVx6ktex7BaN/EpJ9FotrlVsUsVrX3q8TBi7e1ShNMjppWhVLxOy9Ku6YbSSNuKdiHajpJ3oEMzJU12frwdB04t89/1O/w1cDnyilFU=")).build();
 	
     public static void main(String[] args) {
         SpringApplication.run(QiitaBotApplication.class, args);
@@ -60,20 +61,15 @@ public class QiitaBotApplication {
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
         System.out.println("event: ");
         System.out.println(event.getSource().getUserId());
-//        pushConfirmController.pushAlarm(event);
-        switch (event.getMessage().getText().toString()) {
-        case "こんにちは":
-          return makeGreeting();
-        default:
         		
 //        BotApiResponse response = lineMessagingClient.pushMessage((new PushMessage(event.getReplyToken(),
 //                new TemplateMessage("明日は燃えるごみの日だよ！",new ConfirmTemplate("ごみ捨ては終わった？",
 //                                                                                new MessageAction("はい", "はい"),
 //                                                                                new MessageAction("いいえ", "いいえ")
 //                                                                                ) ))) ).get();
+        pushMessage(lineMessagingClient,event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
-    }
     
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
 //    public TextMessage doSomething() {
@@ -121,4 +117,15 @@ public class QiitaBotApplication {
     public void handleDefaultMessageEvent(Event event) {
         System.out.println("event: " + event);
     }
+    
+    
+    public static void pushMessage(LineMessagingClient lineMessagingClient,MessageEvent<TextMessageContent> event) {
+        String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
+            try {
+                lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage("こんにちは")));
+            } catch (Exception e) {
+                // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
+            }
+        }
+
 }
