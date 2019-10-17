@@ -37,8 +37,8 @@ public class UserRepository {
 	 * @return ユーザー情報 存在しない場合はnullを返します
 	 */
 	public User findByUserId(String userId) {
-		String sql = "select id,user_id,registration_url from users where user_id=:userId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", userId);
+		String sql = "select id,user_id,registration_url from users where user_id = :userId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		if (userList.size() == 0) {
 			return null;
@@ -47,8 +47,9 @@ public class UserRepository {
 	}
 	
 	public void insert(User user) {
-		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		String sql = "INSERT INTO users(user_id, registration_url) VALUES(:userId, :registrationUrl)";
+	    SqlParameterSource param = new MapSqlParameterSource().addValue("userId", user.getUserId()).addValue("registrationUrl", user.getRegistrationUrl());
+		
 		template.update(sql, param);
 		System.out.println("777777777777");
 	}

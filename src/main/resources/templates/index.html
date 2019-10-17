@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" >
 
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet">
+<!--     <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet">
     <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script> -->
   <!--   <link th:href="@{/css/home.css}" rel="stylesheet"> -->
     <title>Home</title>
 </head>
 
 <body>
 こんにちは
+<table>
+<tr th:each="user:${user}">
+<td th:text="${user.userId}"></td>
+<td th:text="${user.registrationUrl}">
+</td>
+<tr>
+<td th:text="${serchUser.userId}"></td>
+<td th:text="${serchUser.registrationUrl}"></td>
+<td th:text="${serchUser.id}"></td>
+</tr>
+
+</table>
+
 </body>
 
 </html>
