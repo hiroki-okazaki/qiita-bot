@@ -3,6 +3,8 @@ package com.example;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +23,9 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootApplication
 @LineMessageHandler
 @EnableScheduling
@@ -63,6 +68,7 @@ public class QiitaBotApplication {
 //                                                                                new MessageAction("はい", "はい"),
 //                                                                                new MessageAction("いいえ", "いいえ")
 //                                                                          ) ))) ).get();
+        System.out.println(lineMessagingClient);
         pushMessage(lineMessagingClient,event);
         return new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         }
@@ -103,11 +109,14 @@ public class QiitaBotApplication {
 //    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public static void pushMessage(LineMessagingClient lineMessagingClient,MessageEvent<TextMessageContent> event) {
         String userId = "Udd89ec41ae851f75bc33dc4c331d56fb";
+        Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
             try {
             	BotApiResponse apiResponse = lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("こんにちは"))).get();
                 System.out.println("成功");
+                log.info("Sent messages: {}", apiResponse);
             } catch (Exception e) {
             	System.out.println("失敗");
+            	System.out.println(e);
                 // 送信先ID消失によるエラーの可能性があるため、IDを削除したのちcontinueする
             }
         }
