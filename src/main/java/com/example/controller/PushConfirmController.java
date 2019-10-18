@@ -129,7 +129,7 @@ public class PushConfirmController {
 		while (matcher.find()) {
 			str =  matcher.group();
 			//<a>タグの中のtref以降のパスを取得する
-			sb.append("https://qiita" + str.substring(str.indexOf("\"/") + 1, str.indexOf("\">")));
+			sb.append("https://qiita.com" + str.substring(str.indexOf("\"/") + 1, str.indexOf("\">")));
 			//改行
 			sb.append(System.getProperty("line.separator"));
 		}
