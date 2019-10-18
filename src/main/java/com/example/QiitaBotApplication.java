@@ -56,16 +56,13 @@ public class QiitaBotApplication {
     //オウム返しを行うメソッド
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
-    	System.out.println("00000000");
     	callback.registrationUser(event);
-        System.out.println("1111111111");
         TextMessage text = new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
         return text;
         }
     
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() {
-    	System.out.println("cron呼ばれてる");
     	pushConfirmController.pushMessage();
     }
 

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.controller;
 
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;

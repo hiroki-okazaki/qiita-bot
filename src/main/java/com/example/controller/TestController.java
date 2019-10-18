@@ -17,6 +17,8 @@ public class TestController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private PushConfirmController pushConfirmController;
 	
 	
 	
@@ -29,6 +31,10 @@ public class TestController {
 		User user = userRepository.findByUserId(userList.get(0).getUserId());
 		
 		model.addAttribute("serchUser", user);
+		
+    	String html = pushConfirmController.loadHtml();
+        System.out.println(html);
+    	model.addAttribute("strHtml", html);
 		
 		return "index";
 	}
