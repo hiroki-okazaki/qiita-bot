@@ -12,7 +12,7 @@
 
 <body>
 こんにちは
-<table>
+<table border="1">
 <tr th:each="user:${user}">
 <td th:text="${user.userId}"></td>
 <td th:text="${user.registrationUrl}">
@@ -27,6 +27,10 @@
 <br>
 <br>
 <br>
+<!-- <div th:each="strhtml:${strHtml}">
+<span th:text="${strhtml}"></span>
+</div> -->
+
 <span th:text="${strHtml}"></span>
 
 </body>

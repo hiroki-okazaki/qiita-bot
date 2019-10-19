@@ -23,7 +23,7 @@ public class TestController {
 	
 	
 	@RequestMapping("/")
-	public String test(Model model) {
+	public String test(Model model) throws Exception {
 		List<User> userList = userRepository.findAll();
 		
 		model.addAttribute("user",userList);
@@ -32,8 +32,13 @@ public class TestController {
 		
 		model.addAttribute("serchUser", user);
 		
-    	String html = pushConfirmController.loadHtml();
-        System.out.println(html);
+//    	String html = pushConfirmController.loadHtml();
+//        System.out.println(html);
+		
+//		List<String> html = pushConfirmController.read("https://qiita.com","UTF-8");
+//		System.out.println(html.size());
+		
+		String html = pushConfirmController.test();
     	model.addAttribute("strHtml", html);
 		
 		return "index";
