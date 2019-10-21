@@ -58,7 +58,7 @@ public class PushConfirmController {
 
 			try {
 				BotApiResponse apiResponse = lineMessagingClient
-						.pushMessage(new PushMessage(userId, new TextMessage(message + "\n\n" + url + "\n\n" + message2))).get();
+						.pushMessage(new PushMessage(userId, new TextMessage(message + "\r\n" + url + "\r\n" + message2))).get();
 				log.info("Sent messages: {}", apiResponse);
 			} catch (Exception e) {
 				System.out.println(e);

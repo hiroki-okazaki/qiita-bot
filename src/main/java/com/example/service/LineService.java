@@ -27,7 +27,7 @@ public class LineService {
 			+ CORE_VALUE_03_MESSAGE + "\r\n" + CORE_VALUE_04_MESSAGE + "\r\n" + CORE_VALUE_05_MESSAGE + "\r\n";
 
 	// メッセージ該当外メッセージ
-	private static final String OTHER_MESSAGE = "ようこそ!\r\nSpringLineBotへ!";
+	private static final String OTHER_MESSAGE = "毎日18時にQiitaの人気投稿記事を送るよ!";
 
 	// メッセージMAP
 	private static final Map<String, String> MESSAGE_MAP = Collections.unmodifiableMap(new HashMap<String, String>() {

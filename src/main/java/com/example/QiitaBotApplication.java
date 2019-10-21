@@ -48,7 +48,7 @@ public class QiitaBotApplication {
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
     	callback.registrationUser(event);
-        TextMessage text = new TextMessage(lineservice.createResponseMessage(event.getMessage().getText()));
+        TextMessage text = new TextMessage(lineservice.createResponseMessage());
         return text;
         }
     
