@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.repository.UserRepository;
+import com.example.service.LineService;
 import com.example.service.PushConfirmService;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 
 
 @Controller
@@ -21,6 +24,8 @@ public class TestController {
 	@Autowired
 	private PushConfirmController pushConfirmController;
 	
+	@Autowired
+    private LineService lineservice;
 	
 	
 	@RequestMapping("/")
@@ -35,11 +40,19 @@ public class TestController {
 //		
 
 //    	model.addAttribute("strHtml", html);
+		
 		PushConfirmService pushConfirmService = new PushConfirmService();
 		String url = pushConfirmService.selectionJsonData("https://qiita.com");
 		
     	model.addAttribute("strHtml", url);
           
+		return "index";
+	}
+	
+	public String test2(MessageEvent<TextMessageContent> event) throws Exception {
+		
+		String text = lineservice.createResponseMessage(event.getMessage().getText());
+		
 		return "index";
 	}
 }

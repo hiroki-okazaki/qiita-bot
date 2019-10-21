@@ -1,16 +1,13 @@
 package com.example;
 
-import java.net.URISyntaxException;
-import java.util.concurrent.ExecutionException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.Callback;
 import com.example.controller.PushConfirmController;
+import com.example.controller.TestController;
 import com.example.service.LineService;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -46,9 +43,12 @@ public class QiitaBotApplication {
     
     //オウム返しを行うメソッド
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws URISyntaxException, InterruptedException, ExecutionException {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
     	callback.registrationUser(event);
-        TextMessage text = new TextMessage(lineservice.createResponseMessage());
+//        TextMessage text = new TextMessage(lineservice.createResponseMessage());
+        
+        TestController test = new TestController();
+        TextMessage text =  new TextMessage(test.test2(event));
         return text;
         }
     
