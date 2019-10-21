@@ -46,9 +46,10 @@ public class QiitaBotApplication {
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
     	callback.registrationUser(event);
 //        TextMessage text = new TextMessage(lineservice.createResponseMessage());
-        
-        TestController test = new TestController();
-        TextMessage text =  new TextMessage(test.test2(event));
+//        
+//        TestController test = new TestController();
+//        TextMessage text =  new TextMessage(test.test2(event));
+    	TextMessage text = new TextMessage(event.getMessage().getText());
         return text;
         }
     
