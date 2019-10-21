@@ -51,8 +51,9 @@ public class TestController {
 	
 	public String test2(MessageEvent<TextMessageContent> event) throws Exception {
 		
-		String text = lineservice.createResponseMessage(event.getMessage().getText());
+		String text = lineservice.createResponseMessage();
+		System.out.println(text);
 		
-		return "index";
+		return text;
 	}
 }
