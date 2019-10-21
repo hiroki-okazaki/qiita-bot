@@ -42,18 +42,12 @@ public class TestController {
 //    	model.addAttribute("strHtml", html);
 		
 		PushConfirmService pushConfirmService = new PushConfirmService();
-		String url = pushConfirmService.selectionJsonData("https://qiita.com");
+		String url = pushConfirmService.selectionJsonData(strurl);
 		
     	model.addAttribute("strHtml", url);
           
 		return "index";
 	}
 	
-//	public String test2(MessageEvent<TextMessageContent> event) throws Exception {
-//		
-//		String text = lineservice.createResponseMessage();
-//		System.out.println(text);
-//		
-//		return text;
-//	}
+
 }
