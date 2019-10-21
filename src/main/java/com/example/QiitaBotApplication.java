@@ -50,7 +50,7 @@ public class QiitaBotApplication {
         return text;
         }
     
-    @Scheduled(cron = "0 26 19 * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 28 19 * * *", zone = "Asia/Tokyo")
     public void doSomething() throws Exception {
     	pushConfirmController.pushMessage();
     }
