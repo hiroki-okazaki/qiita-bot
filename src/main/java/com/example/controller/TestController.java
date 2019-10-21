@@ -1,17 +1,12 @@
 package com.example.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.JsonData;
 import com.example.repository.UserRepository;
+import com.example.service.PushConfirmService;
 
 
 @Controller
@@ -29,7 +24,7 @@ public class TestController {
 	
 	
 	@RequestMapping("/")
-	public String test() throws Exception {
+	public String test(Model model) throws Exception {
 //		List<User> userList = userRepository.findAll();
 //		
 //		model.addAttribute("user",userList);
@@ -40,7 +35,10 @@ public class TestController {
 //		
 
 //    	model.addAttribute("strHtml", html);
-
+		PushConfirmService pushConfirmService = new PushConfirmService();
+		String url = pushConfirmService.selectionJsonData("https://qiita.com");
+		
+    	model.addAttribute("strHtml", url);
           
 		return "index";
 	}
