@@ -3,8 +3,6 @@ package com.example;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,16 +12,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.example.controller.Callback;
 import com.example.controller.PushConfirmController;
 import com.example.service.LineService;
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.action.MessageAction;
-import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.template.ConfirmTemplate;
-import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -61,7 +52,8 @@ public class QiitaBotApplication {
         return text;
         }
     
-    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Tokyo")
+//    @Scheduled(cron = "0 0 8,18 * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void doSomething() throws Exception {
     	pushConfirmController.pushMessage();
     }

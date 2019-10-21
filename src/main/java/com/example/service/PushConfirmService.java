@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -101,9 +102,16 @@ public class PushConfirmService {
 
 			// 0~ブログ記事の数からランダムの数字のブログ記事URLを取り出す
 			Random rnd = new Random();
-			String pushUrl = topUrl + "/" + urlList.get(rnd.nextInt(urlList.size()));
-
-			return pushUrl;
+			StringBuilder pushUrl = new StringBuilder();
+			
+			 // シャッフルして、順番を変える
+	        Collections.shuffle(urlList);
+	        for(int i = 0;i < 5;i++) {
+	        pushUrl.append(topUrl + "/" + urlList.get(i) + "\n");
+	        }
+	         System.out.println(urlList);
+	        
+			return pushUrl.toString();
 		} catch (JSONException e) {
 			System.out.println(e.getMessage());
 		}

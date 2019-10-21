@@ -40,20 +40,17 @@ public class PushConfirmController {
 	@Autowired
 	private PushConfirmService pushConfirmService ;
 
-	@Autowired
-	private PushConfirmController pushConfirmController;
-//	private static final Pattern pattern = Pattern.compile("<a class=\"u-link-no-underline.+?</a>", Pattern.DOTALL);
 	private static final Pattern pattern = Pattern.compile("<a class=\"tr-Item.+?</a>", Pattern.DOTALL);
-	private static final Pattern jsonpattern = Pattern.compile(".\"trend\":.+?\"daily\"}", Pattern.DOTALL);
 
-	// 指定したユーザーにメッセージを送信するメソッド
+	// 指定したユーザーにブログ記事のURLをメッセージ送信するメソッド
 	public void pushMessage() throws Exception {
 
 		List<User> userList = userRepository.findAll();
 		Logger log = LoggerFactory.getLogger(QiitaBotApplication.class);
 		
 		String url = pushConfirmService.selectionJsonData("https://qiita.com");
-
+		String message = "本日のQiita人気記事はこちら↓";
+		String message2 = "毎日読んで知識を広げよう！";
 		for (User user : userList) {
 			String userId = user.getUserId();
 //			String registration_url = user.getRegistrationUrl();
@@ -61,7 +58,7 @@ public class PushConfirmController {
 
 			try {
 				BotApiResponse apiResponse = lineMessagingClient
-						.pushMessage(new PushMessage(userId, new TextMessage(url))).get();
+						.pushMessage(new PushMessage(userId, new TextMessage(message + "\n" + url + "\n" + message2))).get();
 				log.info("Sent messages: {}", apiResponse);
 			} catch (Exception e) {
 				System.out.println(e);
@@ -141,6 +138,7 @@ public class PushConfirmController {
 		return sb.toString();
 	}
 
+	//指定したurlのHTMLを文字列として取り出すメソッド.
 	public List<String> read(String url, String charset) throws Exception {
 		InputStream is = null;
 		InputStreamReader isr = null;

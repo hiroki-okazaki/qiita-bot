@@ -15,13 +15,14 @@ public class Callback {
 
 	public void registrationUser(MessageEvent<TextMessageContent> event) {
 		String userId = event.getSource().getUserId();
-		System.out.println("3333333333333");
+
+		//ユーザーからメッセージが送られてきた時、ユーザーのidが登録されていない時に行う処理
 		if (userRepository.findByUserId(userId) == null) {
 			User user = new User();
 			user.setUserId(userId);
-			System.out.println("44444444444");
-			user.setRegistrationUrl("https://qiita.com/zakioka_pirori");
+			user.setRegistrationUrl("https://qiita.com");
 
+			//ユーザーidとキータのトップページを登録する
 			userRepository.insert(user);
 		} else {
 			System.out.println("登録済み");
