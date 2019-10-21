@@ -99,7 +99,7 @@ public class LineService {
 	}
 	
 	public String createResponseMessage() {
-		return MESSAGE_MAP.get(CORE_VALUE_ALL_MESSAGE);
+		return  OTHER_MESSAGE ;
 	}
 
 }

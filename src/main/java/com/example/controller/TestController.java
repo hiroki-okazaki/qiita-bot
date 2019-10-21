@@ -49,11 +49,11 @@ public class TestController {
 		return "index";
 	}
 	
-	public String test2(MessageEvent<TextMessageContent> event) throws Exception {
-		
-		String text = lineservice.createResponseMessage();
-		System.out.println(text);
-		
-		return text;
-	}
+//	public String test2(MessageEvent<TextMessageContent> event) throws Exception {
+//		
+//		String text = lineservice.createResponseMessage();
+//		System.out.println(text);
+//		
+//		return text;
+//	}
 }
