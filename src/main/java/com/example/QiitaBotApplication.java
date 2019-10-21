@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.controller.Callback;
 import com.example.controller.PushConfirmController;
-import com.example.controller.TestController;
 import com.example.service.LineService;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -50,7 +50,7 @@ public class QiitaBotApplication {
         return text;
         }
     
-//    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 18 * * * *", zone = "Asia/Tokyo")
     public void doSomething() throws Exception {
     	pushConfirmController.pushMessage();
     }
